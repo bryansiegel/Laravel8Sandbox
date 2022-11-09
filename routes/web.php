@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('http-client', function() {
+    $response = Http::get('https://api.github.com/users/bryansiegel/repos?sort=created&per_page=3');
+
+    return view('http-client', [
+        'repos' => $response->json(),
+
+    ]);
+    
+
+
 });
